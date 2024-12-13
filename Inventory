@@ -1,0 +1,5 @@
+[web_servers]
+Workstation ansible_host_all=192.168.56.147 ansible_user=urbano
+CentOS ansible_host_all=192.168.56.151 ansible_user=urbano 
+  
+

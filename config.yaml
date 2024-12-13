@@ -1,0 +1,37 @@
+---
+- name: Install Apache
+  hosts: all
+  become: yes
+  vars:
+    username: "urbano"
+
+
+  tasks:
+     - name: Update apt package cache
+       apt:
+         update_cache: yes
+     - name: update and upgrade (centos)
+       tags: always
+       yum:
+         update_only: yes
+         name: "*"
+         state: latest
+       when: ansible_distribution == "CentOS"
+
+     - name: Install Apache
+       apt:
+         name: apache2
+         state: present
+
+     - name: Start Apache service
+       service:
+         name: apache2
+         state: started
+     - name: Install Docker
+       package:
+         name: docker.io
+         state: present
+     - name: Update MOTD
+       copy: 
+         dest: /etc/motd
+         content: "Ansible Managed by {{ username }}"

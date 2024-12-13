@@ -1,0 +1,24 @@
+---
+- host: all
+  become: true
+  tasks:
+
+  - name: Create Folder /srv/prometheus if not exist
+    file:
+      path: /srv/prometheus
+      mode: 0755
+      state: directory
+
+  - name: Create Folder /srv/alertmanager if not exist
+    file:
+      path: /srv/alertmanager
+      mode: 0755
+      state: directory
+
+  - name: Create prometheus configuration file
+    copy:
+      dest: /srv/prometheus/prometheus.yml
+      src: prometheus_main.yml
+      mode: 0644
+
+
